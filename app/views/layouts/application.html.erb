@@ -7,9 +7,28 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'stylesheets', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div>
+      <div id='header'>
+        <%= render 'layouts/navbar' %>
+      </div>
+    </div>
+    <div class='w-full max-w-screen-xl mx-auto px-6'>
+      <div class='lg:flex -mx-6'>
+        <div id='content-wrapper' class='min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4 xl:w-4/5'>
+          <div id="content">
+            <div id="app" class="flex">
+              <div class="pt-24 pb-16 lg:pt-28 w-full">
+
+                <%= yield %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
