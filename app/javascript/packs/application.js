@@ -2,5 +2,5 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require("css/application")
+import '../css/application.css';
 const images = require.context('../images', true)
