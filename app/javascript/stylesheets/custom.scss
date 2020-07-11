@@ -1,0 +1,46 @@
+.pagy-nav,
+.pagy-nav-js,
+.pagy-combo-nav-js {
+    @apply .relative .z-0 .inline-flex .shadow-sm;
+}
+.pagy-nav.pagination,
+.pagy-nav-js.pagination,
+.pagy-combo-nav-js.pagination {
+    @apply ;
+}
+.pagy-nav .page,
+.pagy-nav-js .page,
+.pagy-combo-nav-js .page,
+.pagy-combo-nav-js .pagy-combo-input {
+    @apply .-ml-px .relative .inline-flex .items-center .px-4 .py-2 .border .border-gray-300 .bg-white .text-sm .leading-5 .font-medium .text-gray-700    .transition .ease-in-out .duration-150;
+}
+.pagy-nav .page:hover,
+.pagy-nav-js .page:hover {
+    @apply .text-gray-500;
+}
+ 
+.pagy-nav .page:focus {
+    @apply .z-10 .outline-none .border-blue-300 ;
+}
+
+.pagy-nav .disabled,
+.pagy-nav-js .disabled,
+.pagy-combo-nav-js .disabled {
+    @apply .cursor-not-allowed;
+}
+.pagy-nav .active,
+.pagy-nav-js .active {
+    @apply .bg-gray-100 .text-gray-700;
+}
+.pagy-nav .prev,
+.pagy-nav-js .prev,
+.pagy-combo-nav-js .prev {
+    @apply .relative .inline-flex .items-center .px-2 .py-2 .rounded-l-md .border .border-gray-300 .bg-white .text-sm .leading-5 .font-medium .text-gray-500  .transition .ease-in-out .duration-150;
+}
+// hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500
+.pagy-nav .next,
+.pagy-nav-js .next,
+.pagy-combo-nav-js .next {
+    @apply .-ml-px .relative .inline-flex .items-center .px-2 .py-2 .rounded-r-md .border .border-gray-300 .bg-white .text-sm .leading-5 .font-medium .text-gray-500  .transition .ease-in-out .duration-150;
+}
+// hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500

@@ -4,7 +4,7 @@ class AirportsController < ApplicationController
   # GET /airports
   # GET /airports.json
   def index
-    @airports = Airport.all
+    @pagy, @airports = pagy(Airport.all)
   end
 
   # GET /airports/1

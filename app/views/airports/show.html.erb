@@ -1,14 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div class='container mx-auto px-4'>
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
 
-<p>
-  <strong>Name:</strong>
-  <%= @airport.name %>
-</p>
+        <%= render 'card', airport: @airport %>
+        <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @airport.code %>
-</p>
+        <p>
+        <strong>Name:</strong>
+        <%= @airport.name %>
+        </p>
 
-<%= link_to 'Edit', edit_airport_path(@airport) %> |
-<%= link_to 'Back', airports_path %>
+        <p>
+        <strong>Code:</strong>
+        <%= @airport.code %>
+        </p>
+
+        <%= link_to 'Edit', edit_airport_path(@airport) %> |
+        <%= link_to 'Back', airports_path %>
+      </div>
+    </div>
+  </div>
+</div>

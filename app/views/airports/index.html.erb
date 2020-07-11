@@ -3,7 +3,7 @@
 <div class='mb-6 px-6 max-w-3xl mx-auto lg:mr-auto xl:mx-0 xl:px-12 xl:w-3/4'>
   <h1 class="flex items-center text-xl">Airports</h1>
   <div class="mt-0 mb-4 text-gray-600">
-   Select an airport 
+    Select an airport
   </div>
   <hr class="mt-0 mb-4 text-gray-600">
 </div>
@@ -11,7 +11,7 @@
 <div class='container mx-auto px-4'>
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-grau-200">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
         <table class="min-w-full">
           <thead>
             <tr>
@@ -27,19 +27,13 @@
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= airport.name %></td>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= airport.code %></td>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= link_to 'Show', airport %></td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= link_to 'Edit', edit_airport_path(airport) %></td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= link_to 'Destroy', airport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
+        <%= render 'pagination' %>
       </div>
     </div>
   </div>
 </div>
 
-
-
-<br>
-
-<%= link_to 'New Airport', new_airport_path %>
