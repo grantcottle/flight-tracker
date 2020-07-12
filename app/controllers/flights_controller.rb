@@ -1,74 +1,33 @@
+# frozen_string_literal: true
+
 class FlightsController < ApplicationController
-  before_action :set_flight, only: [:show, :edit, :update, :destroy]
-
-  # GET /flights
-  # GET /flights.json
+  before_action :set_flight, only: %i[show]
   def index
-    @flights = Flight.all
+    @airport_options = Airport.all.order(:city).map { |a| [a.city, a.id] }
+    @date_options = Flight.valid_dates
+
+    search_flights if params[:commit]
   end
 
-  # GET /flights/1
-  # GET /flights/1.json
-  def show
-  end
+  def search_flights
+    if params[:origin] == params[:destination]
+      flash.now[:alert] = 'Please choose different departure and arrical cities.'
+    elsif params[:departure_date].empty?
+      @pagy, @flights = pagy(Flight.where('origin_id = ? AND destination_id = ? ', params[:origin], params[:destination]))
+    else
+      date = Date.parse(params[:departure_date])
+      date_begin = date.beginning_of_day
 
-  # GET /flights/new
-  def new
-    @flight = Flight.new
-  end
-
-  # GET /flights/1/edit
-  def edit
-  end
-
-  # POST /flights
-  # POST /flights.json
-  def create
-    @flight = Flight.new(flight_params)
-
-    respond_to do |format|
-      if @flight.save
-        format.html { redirect_to @flight, notice: 'Flight was successfully created.' }
-        format.json { render :show, status: :created, location: @flight }
-      else
-        format.html { render :new }
-        format.json { render json: @flight.errors, status: :unprocessable_entity }
-      end
+      date_end = date.end_of_day
+      @flights = Flight.where('origin_id = ? AND destination_id = ? AND departure_date > ? AND departure_date< ?', params[:origin], params[:destination], date_begin, date_end)
     end
   end
 
-  # PATCH/PUT /flights/1
-  # PATCH/PUT /flights/1.json
-  def update
-    respond_to do |format|
-      if @flight.update(flight_params)
-        format.html { redirect_to @flight, notice: 'Flight was successfully updated.' }
-        format.json { render :show, status: :ok, location: @flight }
-      else
-        format.html { render :edit }
-        format.json { render json: @flight.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /flights/1
-  # DELETE /flights/1.json
-  def destroy
-    @flight.destroy
-    respond_to do |format|
-      format.html { redirect_to flights_url, notice: 'Flight was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  def show; end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_flight
-      @flight = Flight.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def flight_params
-      params.require(:flight).permit(:flight_number, :origin_id, :destination_id, :departure_date, :departure_time, :description, :duration, :stops)
-    end
+  def set_flight
+    @flight = Flight.find(params[:id]) 
+  end
 end
