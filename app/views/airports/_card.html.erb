@@ -1,5 +1,5 @@
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
-  <%= image_pack_tag "media/images/card-top.jpg", class: "w-full", alt: "Laguna beach" %> 
+  <%= image_tag Unsplash::Photo.search(airport).first.urls.raw, class: "w-full", alt: "#{airport.city}" %> 
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2"><%= airport.name %></div>
     <p class="text-gray-700 text-base">
