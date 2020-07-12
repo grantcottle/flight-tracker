@@ -13,7 +13,7 @@ end
 
 Airport.destroy_all
 Flight.destroy_all
-Airports.all[0..100].each do |airport|
+Airports.all.filter{|a| a if a.country == 'United States'}.each do |airport|
   Airport.create(
     { code: airport.iata,
       name: airport.name,
