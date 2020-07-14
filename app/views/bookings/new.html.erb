@@ -1,0 +1,38 @@
+
+<div class="card">
+  <div class="card-body">
+
+    <%= render partial: 'flight_details' %>
+
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-body">
+
+    <%= form_with model: @booking, url: bookings_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field(:flight_id, value: @flight.id) %>
+      <h2 class="card-title">Passenger Details</h2>
+      <p><mark>Leave fields blank to generate random infomation.</mark></p>
+      <%= f.fields_for :passengers do |p| %>
+        <hr>
+        <h4 class="card-title">Passenger <%= p.options[:child_index] + 1 %></h4>
+        <div class="form-group">
+          <%= p.label :first_name %>
+          <%= p.text_field :first_name, placeholder: "First Name", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= p.label :last_name %>
+          <%= p.text_field :last_name, placeholder: "Last Name", class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= p.label :email %>
+          <%= p.text_field :email, placeholder: "Email", class: "form-control" %>
+        </div>
+      <% end %>
+      <%= f.submit "Confirm Booking", class: "btn btn-success mt-3" %>
+      <%= link_to "Cancel", flights_path, class: "btn btn-danger mt-3" %>
+    <% end %>
+
+  </div>
+</div>

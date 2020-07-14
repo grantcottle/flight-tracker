@@ -1,23 +1,52 @@
 <% if @flights.empty? %>
-<p>No Results found.</p>  
+  <p>No Results found.</p>
 <% else %>
-<table class="min-w-full">
-  <thead>
-    <tr>
-      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Flight number</th>
-      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Flight description</th>
-      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-    </tr>
-  </thead>
-  <tbody class="bg-white">
-    <% @flights.each do |flight| %>
-      <tr>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.flight_number %></td>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.description %></td>
-        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= link_to 'Show', flight %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= render 'pagination' %>
+  <%= form_with url: new_booking_path, method: :get, local: true do |f| %>
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Flight #</th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Departing</th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Arriving</th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Flight Time</th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Stops</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <% @flights.each do |flight| %>
+          <tr>
+            <td scope='row'><%= f.radio_button(:flight, flight.id) %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.flight_number %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.origin.city %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.origin.id %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.departure_time %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.departure_date.strftime("%d %b %Y") %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.destination.city %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.destination.id %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.arrival_time %></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.arrival_date.strftime("%d %b %Y")%></td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.flight_time %></td>
+            <% if flight.stops.zero? %>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Non-Stop</td>
+            <% else %>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= flight.stops %></td>
+            <% end %>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"><%= link_to 'Show', flight %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= f.hidden_field(:passengers, value: params[:passengers])  %>
+    <%= render 'pagination' %>
+  <div class="md:flex md:items-center">
+      <%= f.submit "Book Flight", class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+  </div>
+  <% end %>
 <% end %>

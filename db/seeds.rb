@@ -40,7 +40,6 @@ Airport.all.each do |origin|
         origin_id: origin.id,
         destination_id: destination.id,
         departure_date: d_time.to_date,
-        departure_time: d_time.to_s(:time),
         description: description,
         duration: duration,
         stops: rand(0..2)
