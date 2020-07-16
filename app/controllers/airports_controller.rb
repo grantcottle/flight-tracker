@@ -1,10 +1,16 @@
 class AirportsController < ApplicationController
+  before_action :force_json, only: :search
   before_action :set_airport, only: [:show, :edit, :update, :destroy]
 
   # GET /airports
   # GET /airports.json
   def index
     @pagy, @airports = pagy(Airport.all)
+  end
+
+  def search
+    q = params[:q].downcase
+    @airport = Airport.where("city ILIKE ? or name ILIKE ? or code ILIKE ? ", "%#{q}%","%#{q}%", "%#{q}%").limit(5) 
   end
 
   # GET /airports/1
@@ -65,6 +71,10 @@ class AirportsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_airport
       @airport = Airport.find(params[:id])
+    end
+
+    def force_json
+      request.format = :json 
     end
 
     # Only allow a list of trusted parameters through.

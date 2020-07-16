@@ -31,7 +31,7 @@ Airport.all.each do |origin|
     rand(1..5).times do
       next if origin == destination
 
-      d_time = Time.now + rand(10_000_000)
+      d_time = Time.now + rand(10000000)
       duration = flight_time([origin[:latitude], origin[:longitude]], [destination[:latitude], destination[:longitude]])
       description = "#{origin.city} to #{destination.city}"
 
@@ -39,7 +39,7 @@ Airport.all.each do |origin|
         flight_number: rand(1000..9999),
         origin_id: origin.id,
         destination_id: destination.id,
-        departure_date: d_time.to_date,
+        departure_date: d_time,
         description: description,
         duration: duration,
         stops: rand(0..2)
