@@ -22,11 +22,6 @@ class Flight < ApplicationRecord
     "#{(duration - (duration % 60)) / 60 } hrs #{duration % 60} mins" 
   end
 
-  def self.valid_dates
-    flights = Flight.all.order(departure_date: :asc)
-    flights.map{ |f| f.departure_date.strftime('%d %b %Y') }.uniq
-  end
-
   private
 
   def format_time(time, timezone)
