@@ -5,7 +5,8 @@ require("channels");
 require("stylesheets/application.scss");
 require("jquery");
 require("packs/airports");
-require("packs/datepicker");
 require("easy-autocomplete");
-require("alpinejs");
+
 const images = require.context("../images", true);
+
+import "controllers"
